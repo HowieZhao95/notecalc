@@ -17,3 +17,8 @@
 *.log
 /.vscode/
 /.idea/
+
+# Prepared release archives
+/release/
+__pycache__/
+*.pyc

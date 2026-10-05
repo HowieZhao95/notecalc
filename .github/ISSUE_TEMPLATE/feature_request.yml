@@ -1,0 +1,16 @@
+name: 功能建议 / Feature request
+description: 描述实际使用场景与期望
+title: "[Feature] "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: 要解决什么问题？
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: 希望怎样编辑 Markdown、得到什么结果？
+    validations:
+      required: true

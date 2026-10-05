@@ -1,0 +1,33 @@
+name: 问题反馈 / Bug report
+description: 报告计算、编辑或显示问题
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "请提供匿名的最小示例，不上传真实笔记库或会话数据。安全漏洞请使用私密漏洞报告。"
+  - type: input
+    id: versions
+    attributes:
+      label: 插件与 Obsidian 版本
+      placeholder: "NoteCalc 0.3.2 / Obsidian 1.13.7"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 操作系统、主题和视图模式
+      placeholder: "macOS / 默认主题 / Live Preview"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤与最小 Markdown 示例
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期结果与实际结果
+    validations:
+      required: true

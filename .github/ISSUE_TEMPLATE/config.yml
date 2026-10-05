@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 私密漏洞报告
+    url: https://github.com/HowieZhao95/notecalc/security/advisories/new
+    about: 涉及权限绕过或敏感数据时请勿使用公开 Issue。

@@ -10,11 +10,12 @@
   "scripts": {
     "build": "node build.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "package": "npm run build && python3 tools/package_release.py"
   },
   "keywords": [],
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "HowieZhao95",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "decimal.js": "^10.6.0"
@@ -31,5 +32,16 @@
   "private": true,
   "exports": {
     ".": "./dist/notecalc-core.mjs"
+  },
+  "homepage": "https://github.com/HowieZhao95/notecalc#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HowieZhao95/notecalc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HowieZhao95/notecalc/issues"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

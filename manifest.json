@@ -4,6 +4,7 @@
   "version": "0.3.2",
   "minAppVersion": "1.12.2",
   "description": "以 Markdown 编辑为主的量纲计算笔记与共享 Agent 运行时。",
-  "author": "NoteCalc",
-  "isDesktopOnly": true
+  "author": "HowieZhao95",
+  "isDesktopOnly": true,
+  "authorUrl": "https://github.com/HowieZhao95"
 }
