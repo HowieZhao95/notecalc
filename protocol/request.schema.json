@@ -1,0 +1,406 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NoteCalc protocol 2 CLI request envelope",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "capabilities"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "list_models"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "inspect"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "$ref": "#/$defs/target"
+            },
+            "viewId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scenarioId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "target"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "preview"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "$ref": "#/$defs/target"
+            },
+            "sessionId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sourceRevision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "baseSnapshotId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "changes": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 500,
+              "items": {
+                "$ref": "#/$defs/change"
+              }
+            }
+          },
+          "required": [
+            "target",
+            "sessionId",
+            "sourceRevision",
+            "baseSnapshotId",
+            "changes"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "commit"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sessionId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "previewId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "previewDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "requestId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "sessionId",
+            "previewId",
+            "previewDigest",
+            "requestId"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "explain"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "$ref": "#/$defs/target"
+            },
+            "viewId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scenarioId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "target",
+            "name"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "discard"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "previewId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scenarioId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "export"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target": {
+              "$ref": "#/$defs/target"
+            },
+            "viewId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scenarioId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "target"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "command",
+        "request"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "receipts"
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vaultId",
+        "path",
+        "modelId"
+      ],
+      "properties": {
+        "vaultId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^[^\\\\]+\\.md$"
+        },
+        "modelId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,80}$"
+        }
+      }
+    },
+    "change": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "name",
+            "literal"
+          ],
+          "properties": {
+            "op": {
+              "const": "set_input"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "literal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "name",
+            "expression"
+          ],
+          "properties": {
+            "op": {
+              "const": "set_formula"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expression": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "name",
+            "newName"
+          ],
+          "properties": {
+            "op": {
+              "const": "rename"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "newName": {
+              "type": "string",
+              "maxLength": 128,
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "name",
+            "unit"
+          ],
+          "properties": {
+            "op": {
+              "const": "set_unit"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "unit": {
+              "type": "string",
+              "maxLength": 24
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+# Dependencies and generated builds
+/node_modules/
+/dist/
+/main.js
+/main.js.map
+# Machine-local plugin backups and acceptance evidence
+/backups/
+/acceptance/*
+!/acceptance/README.md
+# Local settings, credentials and editor files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+*.log
+/.vscode/
+/.idea/

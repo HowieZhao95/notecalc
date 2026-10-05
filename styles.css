@@ -1,0 +1,47 @@
+/* Passive annotations only. Source text stays in the host's normal editor. */
+.notecalc-code-line {
+  display: flow-root;
+}
+
+/* Clear floats in normal flow even when a host theme forces display:block. */
+.markdown-source-view.mod-cm6 .cm-line.notecalc-line::after,
+li.notecalc-line::after,
+.notecalc-code-line::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+li.notecalc-line {
+  display: flow-root list-item;
+}
+
+.notecalc-inline {
+  float: right;
+  width: max-content;
+  max-width: calc(100% - 1em);
+  margin-inline-start: 1em;
+  color: var(--text-accent);
+  font-size: 0.9em;
+  text-align: right;
+  text-indent: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  user-select: none;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.notecalc-invalid {
+  color: var(--text-error);
+}
+
+.notecalc-reading pre,
+.notecalc-code-line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.notecalc-code-line {
+  min-height: 1lh;
+}

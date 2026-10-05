@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NoteCalc：独立浏览器接入示例</title>
+<style>
+  body { font: 16px system-ui; max-width: 850px; margin: 2rem auto; padding: 0 1rem; }
+  textarea { width: 100%; box-sizing: border-box; min-height: 16rem; font: 15px monospace; }
+  pre { white-space: pre-wrap; }
+</style>
+<h1>NoteCalc 浏览器接入示例</h1>
+<p>直接编辑 Markdown。结果是临时显示，不会写回正文。此示例独立运行，没有连接 Obsidian 会话。</p>
+<label for="source">Markdown 源文本</label>
+<textarea id="source" spellcheck="false"><!-- notecalc id=demo -->
+## 收入
+- 单价：`2000 元/单`
+- 单量：`80 单`
+- 收入：`单价 * 单量`
+<!-- /notecalc --></textarea>
+<p id="state" role="status">准备计算</p>
+<pre id="output" aria-label="计算结果"></pre>
+<script type="module">
+  const source = document.querySelector('#source');
+  const state = document.querySelector('#state');
+  const output = document.querySelector('#output');
+  let revision = 0, worker, deadline, debounce;
+
+  function compute() {
+    const current = ++revision;
+    worker?.terminate();
+    clearTimeout(deadline);
+    output.textContent = '';
+    state.textContent = '正在计算';
+    const task = worker = new Worker(new URL('./browser-worker.mjs', import.meta.url), { type: 'module' });
+    const stop = message => {
+      if (current !== revision) return;
+      clearTimeout(deadline); task.terminate();
+      state.textContent = message;
+    };
+    task.onmessage = ({ data }) => {
+      if (current !== revision) return;
+      if (data.ready) {
+        clearTimeout(deadline);
+        deadline = setTimeout(() => stop('计算超时，请简化笔记后重试'), 2000);
+        task.postMessage({ revision: current, source: source.value });
+        return;
+      }
+      if (data.revision !== revision) return;
+      window.noteCalcResult = data; // Only for this integration example's verification.
+      stop(data.error ? '计算错误' : '计算完成');
+      output.textContent = data.error || data.calculations.map(model =>
+        `${model.id}（${model.status}）\n` + model.feedback.map(line =>
+          `第 ${line.line} 行 ${line.name || ''}${line.text}${line.valid ? '' : '：' + line.detail}`
+        ).join('\n')
+      ).join('\n\n');
+    };
+    task.onerror = event => { stop('运行失败'); output.textContent = event.message; };
+    deadline = setTimeout(() => stop('内核加载超时，请检查本地资源是否完整'), 10000);
+  }
+
+  source.addEventListener('input', () => {
+    ++revision; worker?.terminate(); clearTimeout(deadline); clearTimeout(debounce);
+    window.noteCalcResult = undefined; output.textContent = ''; state.textContent = '等待编辑完成';
+    debounce = setTimeout(compute, 150);
+  });
+  compute();
+</script>
+</html>
