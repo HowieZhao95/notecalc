@@ -10,10 +10,9 @@
 npm ci
 npm run typecheck
 npm test
-npm run build
 ```
 
-发布打包另需 Python 3.9+：`python3 tools/package_release.py`。
+`npm test` 自动先构建，因此刚克隆的仓库也可直接测试。发布打包另需 Python 3.9+：`python3 tools/package_release.py`。
 
 涉及编辑、布局、保存或撤销的改动，需要记录真实 Obsidian 的操作结果、版本与主题。核心测试通过不能证明宿主体验已通过。不要在个人业务笔记中运行会写入的验收脚本。
 

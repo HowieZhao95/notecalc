@@ -11,7 +11,8 @@
     "build": "node build.mjs",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
-    "package": "npm run build && python3 tools/package_release.py"
+    "package": "npm run build && python3 tools/package_release.py",
+    "pretest": "npm run build"
   },
   "keywords": [],
   "author": "HowieZhao95",

@@ -125,10 +125,9 @@ cd notecalc
 npm ci
 npm run typecheck
 npm test
-npm run build
 ```
 
-构建生成 `main.js`、源码映射与 `dist/notecalc-core.mjs`。安装到专用测试笔记库：
+`npm test` 自动先构建，再运行回归测试；也可单独运行 `npm run build`。构建生成 `main.js`、源码映射与 `dist/notecalc-core.mjs`。安装到专用测试笔记库：
 
 ```sh
 node tools/install.mjs /绝对路径/测试笔记库
